@@ -7,6 +7,7 @@ document.getElementById("btn-login").addEventListener("click", function(){
 
     if(userName=="admin" && pinNumber=="admin123"){
         alert("Sign In Success");
+        window.location.assign("./home.html")
     }else{
         alert("Sign In failed");
         return;
