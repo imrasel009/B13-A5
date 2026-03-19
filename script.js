@@ -9,6 +9,8 @@ const loadIssues=()=>{
 const displayIssues=(issues)=>{
     const actualIssues=issues.data || issues;
     const cardHolder=document.getElementById("card-holder");
+    const totalCards=document.getElementById("total-cards");
+    totalCards.innerText = actualIssues.length;
     cardHolder.innerHTML="";
 
     const labelItems={
