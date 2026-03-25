@@ -1,11 +1,17 @@
 let allIssues = [];
 
+const loadingSpinner = document.getElementById("loading-spinner");
 const loadIssues=()=>{
+    loadingSpinner.classList.remove("hidden");
+    loadingSpinner.classList.add("flex");
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res)=>res.json())
     .then((data)=>{
         allIssues = data.data || data; 
         displayIssues(allIssues);
+        highlightButton("all-btn");
+        loadingSpinner.classList.add("hidden");
+        loadingSpinner.classList.remove("flex");
     })
 };
 
@@ -79,10 +85,26 @@ const displayIssues=(issues)=>{
         cardHolder.appendChild(cardDiv);
     }
 };
+
+const highlightButton=(buttonId) => {
+    const btnIds = ["all-btn", "open-btn", "closed-btn"];
+    for (let i = 0; i<btnIds.length; i++) {
+        const btn = document.getElementById(btnIds[i]);
+        btn.classList.remove("bg-primary", "text-white");
+        btn.classList.add("text-[#64748B]");
+    }
+    const activeBtn = document.getElementById(buttonId);
+    activeBtn.classList.remove("text-[#64748B]");
+    activeBtn.classList.add("bg-primary", "text-white");
+};
+
 loadIssues();
+
+
 
 document.getElementById("all-btn").addEventListener("click", ()=>{
     displayIssues(allIssues);
+    highlightButton("all-btn");
 });
 
 document.getElementById("open-btn").addEventListener("click", ()=>{
@@ -93,6 +115,7 @@ document.getElementById("open-btn").addEventListener("click", ()=>{
         }
     }
     displayIssues(results);
+    highlightButton("open-btn");
 });
 
 document.getElementById("closed-btn").addEventListener("click", ()=>{
@@ -103,4 +126,5 @@ document.getElementById("closed-btn").addEventListener("click", ()=>{
         }
     }
     displayIssues(results);
+    highlightButton("closed-btn");
 });
