@@ -1,7 +1,12 @@
+let allIssues = [];
+
 const loadIssues=()=>{
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res)=>res.json())
-    .then((data)=>displayIssues(data))
+    .then((data)=>{
+        allIssues = data.data || data; 
+        displayIssues(allIssues);
+    })
 };
 
 
@@ -75,3 +80,27 @@ const displayIssues=(issues)=>{
     }
 };
 loadIssues();
+
+document.getElementById("all-btn").addEventListener("click", ()=>{
+    displayIssues(allIssues);
+});
+
+document.getElementById("open-btn").addEventListener("click", ()=>{
+    const results=[];
+    for(let i = 0; i<allIssues.length; i++){
+        if(allIssues[i].status=== "open"){
+            results.push(allIssues[i]);
+        }
+    }
+    displayIssues(results);
+});
+
+document.getElementById("closed-btn").addEventListener("click", ()=>{
+    const results=[];
+    for(let i=0; i<allIssues.length; i++){
+        if(allIssues[i].status=== "closed"){
+            results.push(allIssues[i]);
+        }
+    }
+    displayIssues(results);
+});
