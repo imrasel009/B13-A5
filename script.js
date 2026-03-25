@@ -22,8 +22,9 @@ const displayIssues=(issues)=>{
     const priorityStatus={
         "high":{badge: "bg-[#FEECEC] text-[#EF4444]",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"},
         "medium":{badge: "bg-[#FFF8DB] text-[#D97706]",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"},
-        "low": {badge: "bg-[#F3E8FF] text-[#A855F7]",border: "border-t-[#A855F7]",img: "./assets/Closed- Status .png"},
-        "enhancement": {badge: "bg-[#DEFCE8] text-[#16A34A]",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"},
+        "low": {badge: "bg-[#F3E8FF] text-[#A855F7]",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"},
+        "enhancement": {
+            badge: "bg-[#DEFCE8] text-[#16A34A] border",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"},
         "default": {badge: "bg-gray-100 text-gray-600",border: "border-t-[#00A96E]",img: "./assets/Open-Status.png"}
     };
 
@@ -33,10 +34,17 @@ const displayIssues=(issues)=>{
         const priorityLevel=issue.priority.toLowerCase();
         const newCard=priorityStatus[priorityLevel] || priorityStatus["default"];
 
+        let topBorder = newCard.border;
+        let cardImg = newCard.img;
+        if(issue.status === "closed"){
+            topBorder = "border-t-[#A855F7]";
+            cardImg = "./assets/Closed- Status .png";
+            }
+
         cardDiv.innerHTML=`
-            <div class="p-4 bg-white shadow-md rounded-[4px] border-t-4 ${newCard.border}">
+            <div class="p-4 bg-white shadow-md rounded-[4px] border-t-4 ${topBorder}">
                 <div class="flex justify-between items-center">
-                    <img src="${newCard.img}" alt="Status Icon">
+                    <img src="${cardImg}" alt="Status Icon">
                     <div class="py-[6px] px-[25.5px] ${newCard.badge} rounded-full font-medium text-xs">
                         <p>${issue.priority.toUpperCase()}</p>
                     </div>
