@@ -86,6 +86,46 @@
           </div>
         </div>
     </main>
+    
+    <div>
+      <!-- Open the modal using ID.showModal() method -->
+      <dialog id="my_modal_1" class="modal">
+        <div class="modal-box max-w-2xl"> 
+          <div>
+            <h2 id="modal-title" class="text-[#1F2937] text-2xl font-bold"></h2>
+            
+            <div class="flex gap-2 mb-6 items-center">
+              <p id="modal-status" class="text-white p-2 rounded-2xl text-[12px] font-medium"></p>
+              <p class="text-[#64748B]">.</p>
+              <p id="modal-author" class="text-[#64748B]"></p>
+              <p class="text-[#64748B]">.</p>
+              <p id="modal-date" class="text-[#64748B]"></p>
+            </div>
+
+            <div id="modal-labels" class="flex gap-1 flex-wrap"></div>
+
+            <p id="modal-description" class="text-[#64748B] my-6"></p>
+
+            <div class="bg-[#F8FAFC] p-4 flex justify-between">
+              <div>
+                <p class="text-[#64748B]">Assignee:</p><br>
+                <p id="modal-assignee" class="text-[#1F2937] font-semibold"></p>
+              </div>
+              <div>
+                <p class="text-[#64748B]">Priority:</p><br>
+                <p id="modal-priority" class="text-white p-2 rounded-2xl text-[12px] font-medium text-center min-w-[80px]"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn bg-[#6366F1] hover:bg-[#4F46E5] text-white border-none px-6">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

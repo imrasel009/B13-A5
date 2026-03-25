@@ -40,6 +40,7 @@ const displayIssues=(issues)=>{
     };
 
     for(let issue of actualIssues){
+    
         const cardDiv=document.createElement("div");
         
         const priorityLevel=issue.priority.toLowerCase();
@@ -82,6 +83,44 @@ const displayIssues=(issues)=>{
                 </div>
             </div>
         `;
+
+
+        cardDiv.onclick = () => {
+            document.getElementById("modal-title").innerText = issue.title;
+            document.getElementById("modal-description").innerText = issue.description;
+            document.getElementById("modal-author").innerText = "Opened by " + issue.author;
+            document.getElementById("modal-date").innerText = new Date(issue.createdAt).toLocaleDateString();
+            document.getElementById("modal-assignee").innerText = issue.author;
+
+            const modalStatus = document.getElementById("modal-status");
+            modalStatus.innerText = issue.status;
+            if (issue.status === "open") {
+                modalStatus.className = "bg-[#00A96E] text-white p-2 rounded-2xl text-[12px] font-medium";
+            } else {
+                modalStatus.className = "bg-[#A855F7] text-white p-2 rounded-2xl text-[12px] font-medium";
+            }
+
+            const modalPriority = document.getElementById("modal-priority");
+            modalPriority.innerText = issue.priority;
+            if (issue.priority.toLowerCase() === "high") {
+                modalPriority.className = "bg-[#EF4444] text-white p-2 rounded-2xl text-[12px] font-medium text-center min-w-[80px]";
+            } 
+            else if (issue.priority.toLowerCase() === "medium") {
+                modalPriority.className = "bg-[#D97706] text-white p-2 rounded-2xl text-[12px] font-medium text-center min-w-[80px]";
+            } 
+            else {
+                modalPriority.className = "bg-[#64748B] text-white p-2 rounded-2xl text-[12px] font-medium text-center min-w-[80px]";
+            }
+
+            const modalLabels = document.getElementById("modal-labels");
+            modalLabels.innerHTML = issue.labels.map(label => {
+                const config = labelItems[label.toLowerCase()] || labelItems["default"];
+                return `<p class="border rounded-full ${config.css} font-medium text-center py-[4px] px-[8px] text-[10px] uppercase"><i class="${config.icon} mr-1"></i> ${label}</p>`;
+            }).join('');
+
+            document.getElementById("my_modal_1").showModal();
+        };
+
         cardHolder.appendChild(cardDiv);
     }
 };
