@@ -139,6 +139,17 @@ const highlightButton=(buttonId) => {
 
 loadIssues();
 
+document.getElementById("btn-search").addEventListener("click", () => {
+    const input = document.getElementById("input-search");
+    const searchValue = input.value.trim().toLowerCase();
+
+    const filteredIssues = allIssues.filter(issue => 
+        issue.title.toLowerCase().includes(searchValue)
+    );
+
+    displayIssues(filteredIssues);
+});
+
 
 
 document.getElementById("all-btn").addEventListener("click", ()=>{
